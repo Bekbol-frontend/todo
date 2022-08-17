@@ -1,5 +1,6 @@
 import React from "react";
 import { Posts, MyModal, PostFilter, MyButton } from "./components";
+import { useSortedAndQueryPosts } from "./hooks/usePosts";
 import "./styles/main.css";
 
 const getLocalTodo = () => {
@@ -33,29 +34,12 @@ const App = () => {
     setPosts([...posts, data]);
   };
 
-  const sortedPosts = React.useMemo(() => {
-    if (filterPost.sort) {
-      return [...posts].sort((a, b) =>
-        a[filterPost.sort].localeCompare(b[filterPost.sort])
-      );
-    }
-    return posts;
-  }, [posts, filterPost.sort]);
+  const sortedAndSearchedPosts = useSortedAndQueryPosts(
+    posts,
+    filterPost.sort,
+    filterPost.query
+  );
 
-  const sortedAndSearchedPosts = React.useMemo(() => {
-    return sortedPosts.filter(
-      (post) =>
-        post.title
-          .toLowerCase()
-          .includes(filterPost.query.toLowerCase().trim()) ||
-        post.desc.toLowerCase().includes(filterPost.query.toLowerCase().trim())
-    );
-  }, [filterPost.query, sortedPosts]);
-
-  const classesnames = ["modal-block", "active"];
-  const result = classesnames.join(" ");
-
-  console.log(result);
   return (
     <div className="container">
       <MyModal

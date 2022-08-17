@@ -2,7 +2,7 @@ import React from "react";
 import MyButton from "./UI/MyButton";
 import MyInput from "./UI/MyInput";
 
-const FormTodo = ({ create }) => {
+const FormTodo = ({ create, setVisibleModal }) => {
   const [formValue, setFormValue] = React.useState({
     title: "",
     desc: "",
@@ -27,6 +27,7 @@ const FormTodo = ({ create }) => {
     };
 
     create(newTodo);
+    setVisibleModal(false);
 
     setFormValue({
       title: "",

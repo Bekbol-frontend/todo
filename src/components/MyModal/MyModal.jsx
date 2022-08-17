@@ -11,13 +11,15 @@ const MyModal = ({ createPost, visibleModal, setVisibleModal }) => {
     return classes.modalBlock;
   }
 
+  const hideModal = () => setVisibleModal(false);
+
   return (
-    <div className={classModal()}>
-      <div className={classes.modalInner}>
-        <button className={classes.ext} onClick={() => setVisibleModal(false)}>
+    <div className={classModal()} onClick={hideModal}>
+      <div className={classes.modalInner} onClick={(e) => e.stopPropagation()}>
+        <button className={classes.ext} onClick={hideModal}>
           &times;
         </button>
-        <FormTodo create={createPost} />
+        <FormTodo create={createPost} setVisibleModal={setVisibleModal} />
       </div>
     </div>
   );
