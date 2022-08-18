@@ -15,7 +15,7 @@ const PostFilter = ({ filterPost, handleFilterSort }) => {
         defaultValue="Сортировка"
         options={[
           { value: "title", name: "По названию" },
-          { value: "desc", name: "По описанию" },
+          { value: "body", name: "По описанию" },
         ]}
         changeSelect={handleFilterSort}
         value={filterPost}

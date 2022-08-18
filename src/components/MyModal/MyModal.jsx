@@ -3,18 +3,19 @@ import FormTodo from "../FormTodo";
 import classes from "./MyModal.module.css";
 
 const MyModal = ({ createPost, visibleModal, setVisibleModal }) => {
-  function classModal() {
+  
+  const classesModal = React.useMemo(() => {
     if (visibleModal) {
       return [classes.modalBlock, classes.active].join(" ");
     }
 
     return classes.modalBlock;
-  }
+  }, [visibleModal]);
 
   const hideModal = () => setVisibleModal(false);
 
   return (
-    <div className={classModal()} onClick={hideModal}>
+    <div className={classesModal} onClick={hideModal}>
       <div className={classes.modalInner} onClick={(e) => e.stopPropagation()}>
         <button className={classes.ext} onClick={hideModal}>
           &times;

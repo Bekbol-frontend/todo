@@ -24,7 +24,7 @@ const Posts = ({ data, title, remove }) => {
       </h1>
       <ul className="posts">
         {data.map((post, index) => (
-          <PostItem key={post.id} data={post} number={index + 1} remove={remove} />
+          <PostItem key={post.id} data={post} remove={remove} />
         ))}
       </ul>
     </div>

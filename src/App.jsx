@@ -1,21 +1,25 @@
 import React from "react";
 import { Posts, MyModal, PostFilter, MyButton } from "./components";
 import { useSortedAndQueryPosts } from "./hooks/usePosts";
+import { useFetching } from "./hooks/useFetching"
+import { getAllApi } from "./API/getAllProducts";
 import "./styles/main.css";
 
-const getLocalTodo = () => {
-  return localStorage.getItem("post")
-    ? JSON.parse(localStorage.getItem("post"))
-    : [];
-};
-
 const App = () => {
-  const [posts, setPosts] = React.useState(getLocalTodo);
+  const [posts, setPosts] = React.useState([]);
   const [filterPost, setFilterPost] = React.useState({
     sort: "",
     query: "",
   });
   const [visibleModal, setVisibleModal] = React.useState(false);
+  const [getPosts, loadingPosts, errorPosts] = useFetching(async () => {
+    const response = await getAllApi.getAll();
+    setPosts(response.data);
+  });
+
+  React.useEffect(() => {
+    getPosts();
+  }, []);
 
   const handleFilterSort = (e) => {
     const { name } = e.target;
@@ -54,11 +58,30 @@ const App = () => {
         show form
       </MyButton>
       <PostFilter filterPost={filterPost} handleFilterSort={handleFilterSort} />
-      <Posts
-        data={sortedAndSearchedPosts}
-        title="Posts-Javascipt"
-        remove={deletePost}
-      />
+      {loadingPosts ? (
+        <h1
+          style={{
+            color: "royalblue",
+            textAlign: "center",
+            margin: "20px 0px",
+          }}
+        >
+          Loading...
+        </h1>
+      ) : (
+        <Posts
+          data={sortedAndSearchedPosts}
+          title="Posts-Javascipt"
+          remove={deletePost}
+        />
+      )}
+      {errorPosts && (
+        <h1
+          style={{ textAlign: "center", color: "crimson", margin: "20px 0px" }}
+        >
+          Error: {errorPosts}
+        </h1>
+      )}
     </div>
   );
 };
