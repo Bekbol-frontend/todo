@@ -1,0 +1,18 @@
+.pags-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pags-btn .btn {
+    background-color: rgb(232, 232, 232);
+    padding: 10px 15px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.pags-btn .btn:hover,
+.pags-btn .btn.active {
+    background-color: rgb(108, 108, 108);
+    color: white;
+}

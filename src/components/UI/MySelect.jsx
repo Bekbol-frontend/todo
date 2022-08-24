@@ -7,6 +7,8 @@ const MySelect = ({ defaultValue, options, changeSelect, value }) => {
     margin: "20px 0px",
   };
 
+  console.log(value.query);
+
   return (
     <div className="select" style={styles}>
       <select value={value.sort} onChange={changeSelect} name="sort">
